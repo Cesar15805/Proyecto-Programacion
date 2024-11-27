@@ -186,6 +186,8 @@ ax.set_title('Modelo 3D de la Elevación Antes y Después del Deslizamiento')
 ax.legend()
 plt.show()
 
+
+https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
 ## Resultados
 ![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
 
