@@ -107,6 +107,7 @@ for index, row in df.iterrows():
 mapa
 
 import folium
+
 coordenadas = [
     [19.447288, -103.480412],
     [19.447440, -103.480445],
@@ -117,8 +118,11 @@ coordenadas = [
     [19.447224, -103.480806],
     [19.447288, -103.480412] 
 ]
+
 mapa = folium.Map(location=[19.447224, -103.4808061], zoom_start=18)
+
 folium.Polygon(
+
     locations=coordenadas,
     color='blue',
     fill=True,
@@ -130,9 +134,13 @@ mapa
 
 
 pip install shapely matplotlib
+
 import matplotlib.pyplot as plt
+
 from shapely.geometry import Polygon
+
 from pyproj import Proj, transform
+
 coordenadas = [
     [19.447288, -103.480412],
     [19.447440, -103.480445],
@@ -143,43 +151,74 @@ coordenadas = [
     [19.447224, -103.480806],
     [19.447288, -103.480412]
 ]
+
 wgs84 = Proj(init='epsg:4326')
+
 utm = Proj(init='epsg:32614')  # Cambiar 32614 según tu zona UTM específica
+
 coordenadas_utm = [(transform(wgs84, utm, lon, lat)) for lat, lon in coordenadas]
+
 poligono = Polygon(coordenadas_utm)
+
 area = poligono.area
+
 print(f"El área del polígono es: {area:.2f} metros cuadrados.")
+
 x, y = poligono.exterior.xy  # Obtener las coordenadas del contorno exterior
+
 plt.figure(figsize=(8, 6))
+
 plt.fill(x, y, alpha=0.5, color='lightblue', label='Polígono')
+
 plt.plot(x, y, color='blue', linewidth=2)
+
 plt.title("Gráfico 2D del Polígono")
+
 plt.xlabel("Longitud (UTM)")
+
 plt.ylabel("Latitud (UTM)")
+
 plt.text(min(x), min(y), f'Área: {area:.2f} m²', fontsize=12, color='red', ha='left')
+
 plt.legend()
+
 plt.grid(True)
+
 plt.show()
 
 import pandas as pd
+
 import matplotlib.pyplot as plt
+
 from mpl_toolkits.mplot3d import Axes3D
-excel_path = '/content/drive/My Drive/programacion2/deslizamiento_completo.xlsx'  # Reemplaza con la ruta a tu archivo Excel
+
+excel_path = '/content/drive/My Drive/programacion2/deslizamiento_completo.xlsx' 
+
 df = pd.read_excel(excel_path)
+
 print(df.head())
+
 latitudes = df['Latitud']
+
 longitudes = df['Longitud']
+
 elevaciones_antes = df['Altura_Antes']
+
 elevaciones_despues = df['Altura_Despues']
+
 diferencia_elevacion = elevaciones_antes - elevaciones_despues
+
 def calcular_area_triangulo(lat1, lon1, lat2, lon2):
+
     """
     Calcula el área de un triángulo formado por tres puntos en el plano 2D
     utilizando la fórmula del determinante para el área de un triángulo.
     """
     return 0.5 * abs(lat1 * lon2 + lat2 * lon1)
 volumen_total = 0
+
 for i in range(1, len(df)):
+
     lat1, lon1 = latitudes[i-1], longitudes[i-1]
     lat2, lon2 = latitudes[i], longitudes[i]
     elev1, elev2 = elevaciones_antes[i-1], elevaciones_antes[i]
@@ -188,15 +227,25 @@ for i in range(1, len(df)):
     volumen = area * diferencia
     volumen_total += volumen
 print(f"El volumen total desplazado es: {volumen_total} unidades cúbicas")
+
 fig = plt.figure(figsize=(10, 8))
+
 ax = fig.add_subplot(111, projection='3d')
+
 ax.scatter(latitudes, longitudes, elevaciones_antes, c='blue', label='Antes', marker='o')
+
 ax.scatter(latitudes, longitudes, elevaciones_despues, c='red', label='Después', marker='^')
+
 ax.set_xlabel('Latitud')
+
 ax.set_ylabel('Longitud')
+
 ax.set_zlabel('Elevación (m)')
+
 ax.set_title('Modelo 3D de la Elevación Antes y Después del Deslizamiento')
+
 ax.legend()
+
 plt.show()
 
 
