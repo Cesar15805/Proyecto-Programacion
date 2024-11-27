@@ -66,7 +66,7 @@ El análisis depende de la calidad de los datos iniciales. Factores como la hete
 
 Este enfoque sistemático ofrece una base sólida para estudios geotécnicos y proyectos de mitigación de desastres.
 
-CODIGO BASE DE NUESTRO PROYECTO
+#CODIGO BASE DE NUESTRO PROYECTO
 
 !apt-get install -y python3-gdal
 !pip install folium
