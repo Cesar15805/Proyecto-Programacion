@@ -68,46 +68,163 @@ Este enfoque sistemático ofrece una base sólida para estudios geotécnicos y p
 
 CODIGO BASE DE NUESTRO PROYECTO
 
+!apt-get install -y python3-gdal
+!pip install folium
+!pip install openpyxl #para leer archivo en exel
+
+from osgeo import ogr, osr
+from google.colab import drive
+drive.mount('/content/drive')
+%cd "/content/drive/My Drive/programacion2/"
+%ls
+
 import pandas as pd
-import geopandas as gpd
-from shapely.geometry import Polygon
+# Ruta del archivo Excel (sube el archivo desde tu computadora a Colab o Drive)
+excel_path = "/content/drive/My Drive/programacion2/deslizamiento_completo.xlsx"
+# Leer el archivo Excel
+df = pd.read_excel(excel_path)
+# Mostrar las primeras filas del archivo para asegurarse de que se cargó correctamente
+print(df.head())
+
+import folium
+# Crear un mapa centrado en la zona del deslizamiento
+mapa = folium.Map(location=[19.447224, -103.480806], zoom_start=10)
+# Añadir los puntos del archivo Excel al mapa
+for index, row in df.iterrows():
+    lat = row['Latitud']
+    lon = row['Longitud']
+    Z = row['Altura_Antes']
+    # Assuming you want to display Z value in the popup:
+    folium.Marker(location=[lat, lon], popup=str(Z)).add_to(mapa)
+# Mostrar el mapa interactivo
+mapa
+
+import folium
+# Lista de coordenadas (latitud, longitud)
+coordenadas = [
+    [19.447288, -103.480412],
+    [19.447440, -103.480445],
+    [19.447542, -103.480485],
+    [19.447690, -103.480859],
+    [19.447569, -103.481000],
+    [19.447545, -103.481161],
+    [19.447224, -103.480806],
+    [19.447288, -103.480412]  # Cerramos el polígono volviendo al primer punto
+]
+# Crear el mapa centrado en la primera coordenada
+mapa = folium.Map(location=[19.447224, -103.4808061], zoom_start=18)
+# Añadir el polígono al mapa
+folium.Polygon(
+    locations=coordenadas,
+    color='blue',
+    fill=True,
+    fill_color='lightblue',
+    fill_opacity=0.5,
+    popup='Polígono'
+).add_to(mapa)
+# Mostrar el mapa interactivo
+mapa
+
+
+pip install shapely matplotlib
 import matplotlib.pyplot as plt
-
-# Cargar el archivo Excel con las coordenadas
-archivo_excel = "coordenadas.xlsx"
-datos = pd.read_excel(archivo_excel)
-
-# Verificar que el archivo tiene las columnas necesarias
-if not {'X', 'Y'}.issubset(datos.columns):
-    raise ValueError("El archivo debe contener las columnas 'X' y 'Y'.")
-
-# Crear un polígono a partir de las coordenadas
-coordenadas = list(zip(datos['X'], datos['Y']))
-poligono = Polygon(coordenadas)
-
-# Crear un GeoDataFrame para georreferenciar el polígono
-gdf = gpd.GeoDataFrame([1], geometry=[poligono], crs="EPSG:4326")  # EPSG:4326 es WGS84 (sistema estándar GPS)
-
-# Calcular el área
-area = gdf.area.iloc[0]
-print(f"Área del polígono: {area:.2f} unidades cuadradas")
-
-# Calcular el volumen si hay un espesor promedio (columna Z opcional)
-espesor_promedio = datos['Z'].mean() if 'Z' in datos.columns else 1  # Valor por defecto de espesor
-volumen = area * espesor_promedio
-print(f"Volumen estimado: {volumen:.2f} unidades cúbicas")
-
-# Graficar el mapa del polígono
-fig, ax = plt.subplots(figsize=(10, 8))
-gdf.plot(ax=ax, color="blue", edgecolor="black", alpha=0.5)
-plt.title("Mapa del Polígono Generado")
-plt.xlabel("Longitud")
-plt.ylabel("Latitud")
+from shapely.geometry import Polygon
+from pyproj import Proj, transform
+# Coordenadas del polígono (lat, lon)
+coordenadas = [
+    [19.447288, -103.480412],
+    [19.447440, -103.480445],
+    [19.447542, -103.480485],
+    [19.447690, -103.480859],
+    [19.447569, -103.481000],
+    [19.447545, -103.481161],
+    [19.447224, -103.480806],
+    [19.447288, -103.480412]
+]
+# Proyección geográfica (WGS84)
+wgs84 = Proj(init='epsg:4326')
+# Proyección UTM (usando un sistema de coordenadas para la región)
+utm = Proj(init='epsg:32614')  # Cambiar 32614 según tu zona UTM específica
+# Convertir las coordenadas (lat, lon) a UTM (x, y)
+coordenadas_utm = [(transform(wgs84, utm, lon, lat)) for lat, lon in coordenadas]
+# Crear el polígono usando Shapely
+poligono = Polygon(coordenadas_utm)
+# Calcular el área del polígono en metros cuadrados
+area = poligono.area
+print(f"El área del polígono es: {area:.2f} metros cuadrados.")
+# Crear el gráfico 2D del polígono
+x, y = poligono.exterior.xy  # Obtener las coordenadas del contorno exterior
+plt.figure(figsize=(8, 6))
+plt.fill(x, y, alpha=0.5, color='lightblue', label='Polígono')
+plt.plot(x, y, color='blue', linewidth=2)
+# Añadir etiquetas y título
+plt.title("Gráfico 2D del Polígono")
+plt.xlabel("Longitud (UTM)")
+plt.ylabel("Latitud (UTM)")
+# Mostrar el área en el gráfico
+plt.text(min(x), min(y), f'Área: {area:.2f} m²', fontsize=12, color='red', ha='left')
+# Mostrar el gráfico
+plt.legend()
 plt.grid(True)
 plt.show()
 
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+#Cargar el archivo Excel con las coordenadas y las elevaciones
+excel_path = '/content/drive/My Drive/programacion2/deslizamiento_completo.xlsx'  # Reemplaza con la ruta a tu archivo Excel
+df = pd.read_excel(excel_path)
+# Visualizar las primeras filas para asegurar que se ha cargado correctamente
+print(df.head())
+# Extraer las coordenadas (latitud, longitud) y las elevaciones (antes y después)
+latitudes = df['Latitud']
+longitudes = df['Longitud']
+elevaciones_antes = df['Altura_Antes']
+elevaciones_despues = df['Altura_Despues']
+# Calcular la diferencia de elevación en cada punto
+diferencia_elevacion = elevaciones_antes - elevaciones_despues
+# Calcular el volumen de tierra movida entre puntos consecutivos
+def calcular_area_triangulo(lat1, lon1, lat2, lon2):
+    """
+    Calcula el área de un triángulo formado por tres puntos en el plano 2D
+    utilizando la fórmula del determinante para el área de un triángulo.
+    """
+    return 0.5 * abs(lat1 * lon2 + lat2 * lon1)
+volumen_total = 0
+# Iterar sobre los puntos para calcular el volumen
+for i in range(1, len(df)):
+    lat1, lon1 = latitudes[i-1], longitudes[i-1]
+    lat2, lon2 = latitudes[i], longitudes[i]
+    elev1, elev2 = elevaciones_antes[i-1], elevaciones_antes[i]
+    # Calcular el área del triángulo formado por los puntos consecutivos
+    area = calcular_area_triangulo(lat1, lon1, lat2, lon2)
+    # Calcular la diferencia de elevación
+    diferencia = abs(elev1 - elev2)
+    # Calcular el volumen aproximado (Área * Diferencia de elevación)
+    volumen = area * diferencia
+    # Sumar al volumen total
+    volumen_total += volumen
+print(f"El volumen total desplazado es: {volumen_total} unidades cúbicas")
+# Crear una figura 3D
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+# Graficar el modelo 3D para la elevación "Antes" del deslizamiento
+ax.scatter(latitudes, longitudes, elevaciones_antes, c='blue', label='Antes', marker='o')
+# Graficar el modelo 3D para la elevación "Después" del deslizamiento
+ax.scatter(latitudes, longitudes, elevaciones_despues, c='red', label='Después', marker='^')
+# Etiquetas y título
+ax.set_xlabel('Latitud')
+ax.set_ylabel('Longitud')
+ax.set_zlabel('Elevación (m)')
+ax.set_title('Modelo 3D de la Elevación Antes y Después del Deslizamiento')
+# Leyenda
+ax.legend()
+# Mostrar el gráfico 3D
+plt.show()
+
 ## Resultados
-Resultados obtenidos, gráficos y análisis.
+![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
+
 
 ## Conclusiones
 Conclusiones del proyecto y posibles mejoras futuras.
