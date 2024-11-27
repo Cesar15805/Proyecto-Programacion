@@ -263,4 +263,10 @@ https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scroll
 
 
 ## Conclusiones
-Conclusiones del proyecto y posibles mejoras futuras.
+Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara.
+
+El uso de tecnologías como el software GIS fue fundamental, ya que permitió desarrollar un código especializado capaz de realizar estos cálculos de forma eficiente. Este programa no solo facilitó la cuantificación de las pérdidas de material, sino que también transformó la manera de abordar estos eventos, mejorando significativamente la planificación y respuesta ante deslizamientos.
+
+Uno de los mayores desafíos fue integrar y adaptar múltiples códigos para lograr un programa funcional y útil en nuestras labores. Esto implicó resolver problemas técnicos relacionados con el manejo de coordenadas X, Y y Z, que son esenciales para los cálculos necesarios. A pesar de las dificultades, el trabajo en equipo y la perseverancia nos permitieron superar los obstáculos y culminar exitosamente el proyecto.
+
+En conclusión, este esfuerzo no solo representa un avance en la seguridad vial y la gestión de riesgos en una arteria clave para la región, sino que también evidencia cómo la tecnología y la colaboración pueden aportar soluciones innovadoras a problemas complejos.
