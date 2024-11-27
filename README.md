@@ -69,7 +69,9 @@ Este enfoque sistemático ofrece una base sólida para estudios geotécnicos y p
 #CODIGO BASE DE NUESTRO PROYECTO
 
 !apt-get install -y python3-gdal
+
 !pip install folium
+
 !pip install openpyxl 
 
 from osgeo import ogr, osr
