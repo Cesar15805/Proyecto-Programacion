@@ -75,19 +75,30 @@ Este enfoque sistemático ofrece una base sólida para estudios geotécnicos y p
 !pip install openpyxl 
 
 from osgeo import ogr, osr
+
 from google.colab import drive
+
 drive.mount('/content/drive')
+
 %cd "/content/drive/My Drive/programacion2/"
+
 %ls
 
 import pandas as pd
+
 excel_path = "/content/drive/My Drive/programacion2/deslizamiento_completo.xlsx"
+
 df = pd.read_excel(excel_path)
+
 print(df.head())
 
+
 import folium
+
 mapa = folium.Map(location=[19.447224, -103.480806], zoom_start=10)
+
 for index, row in df.iterrows():
+
     lat = row['Latitud']
     lon = row['Longitud']
     Z = row['Altura_Antes']
