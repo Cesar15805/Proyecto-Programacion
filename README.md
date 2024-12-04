@@ -580,8 +580,11 @@ Este código carga un archivo Excel con coordenadas y elevaciones de un deslizam
 
 ![image](https://github.com/user-attachments/assets/47e39b65-8587-450b-a708-077e138f6541)
 
+![image](https://github.com/user-attachments/assets/58763f3e-808c-4e20-824e-0aa129acd71d)
 
+![image](https://github.com/user-attachments/assets/96febadb-f99f-483d-91ce-364b5354ec46)
 
+![image](https://github.com/user-attachments/assets/08827c0f-4846-4851-a362-c38b427842d1)
 
 ## Conclusiones
 Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara, así como la verificación y análisis detallado de un reciente derrumbe en Minatitlán, Colima, lo que permitió ajustar nuestras estrategias de prevención y respuesta ante futuros eventos de deslizamientos.
