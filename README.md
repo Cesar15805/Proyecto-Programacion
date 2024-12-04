@@ -1,5 +1,5 @@
 # Proyecto-Programacion
-Calcular el volumen del deslizamiento de la carretera libre COL-GDL km 39
+Calcular el volumen del deslizamiento 
 Código markdown
 # volumen del deslizamiento del km39
 **Autores:** Cesar Alejandro Aguirre Ramos y Flavio Cesar Juarez Rodriguez 
@@ -66,7 +66,7 @@ El análisis depende de la calidad de los datos iniciales. Factores como la hete
 
 Este enfoque sistemático ofrece una base sólida para estudios geotécnicos y proyectos de mitigación de desastres.
 
-#CODIGO BASE DE NUESTRO PROYECTO
+#CODIGO BASE DE NUESTRO PROYECTO PARA LA CARRETERA LIBRE COLIMA-GUADALAJARA 
 
 !apt-get install -y python3-gdal
 
@@ -247,10 +247,11 @@ ax.set_title('Modelo 3D de la Elevación Antes y Después del Deslizamiento')
 ax.legend()
 
 plt.show()
-
+##CODIGO PARA LA COMPROBACION
 
 https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
-## Resultados
+## Resultados 
+#CARRETERA LIBRE COLIMA-GUADALAJARA
 ![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
 
 ![image](https://github.com/user-attachments/assets/92ff2ff3-02e8-40f6-9d4d-3a406527d0da)
@@ -260,7 +261,7 @@ https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scroll
 ![image](https://github.com/user-attachments/assets/78d60053-17d6-4e5b-82ac-6e9eccfb326d)
 
 ![image](https://github.com/user-attachments/assets/624a474a-4f34-4ab8-95ce-1ca9acf032f7)
-
+#
 
 ## Conclusiones
 Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara.
