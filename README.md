@@ -1,15 +1,14 @@
 # Proyecto-Programacion
-Calcular el volumen del deslizamiento 
-Código markdown
+Calcular el volumen del deslizamiento (Carretera libre colima guadalajara y minatitlan)
 # volumen del deslizamiento del km39
 **Autores:** Cesar Alejandro Aguirre Ramos y Flavio Cesar Juarez Rodriguez 
 
 ## Introducción
-Este proyecto tiene como objetivo mitigar los deslizamientos de tierra en la carretera libre Colima-Guadalajara, una arteria vital para la conectividad y la economía de la región. Debido a las condiciones topográficas y climáticas de la zona, esta infraestructura vial es particularmente vulnerable a estos fenómenos, lo que representa un riesgo significativo tanto para la seguridad de los usuarios como para la estabilidad económica local.
+Este proyecto tiene como objetivo mitigar los deslizamientos de tierra en la carretera libre Colima-Guadalajara, una arteria vital para la conectividad y la economía de la región. Debido a las condiciones topográficas y climáticas de la zona, esta infraestructura vial es particularmente vulnerable a estos fenómenos, lo que representa un riesgo significativo tanto para la seguridad de los usuarios como para la estabilidad económica local. Además, el reciente derrumbe en Minatitlán, Colima, ha puesto de manifiesto la necesidad urgente de implementar medidas preventivas más efectivas y contar con herramientas que permitan evaluar rápidamente el impacto de estos eventos.
 
-Con el propósito de abordar este desafío, el proyecto propone el desarrollo de modelos predictivos avanzados capaces de anticipar la ocurrencia de deslizamientos y la implementación de un programa especializado para calcular con precisión el volumen de material afectado en cada evento. Para ello, se utilizarán herramientas tecnológicas innovadoras que incluyen la recopilación y análisis de datos geoespaciales, así como metodologías avanzadas de modelado y simulación.
+Con el propósito de abordar este desafío, el proyecto propone el desarrollo de modelos predictivos avanzados capaces de anticipar la ocurrencia de deslizamientos y la implementación de un programa especializado para calcular con precisión el volumen de material afectado en cada evento. Para ello, se utilizarán herramientas tecnológicas innovadoras que incluyen la recopilación y análisis de datos geoespaciales, así como metodologías avanzadas de modelado y simulación. Además, se incorporarán los datos y la experiencia obtenida en el análisis del derrumbe reciente en Minatitlán para ajustar los modelos y mejorar la precisión de las predicciones.
 
-La combinación de estos enfoques permitirá no solo prevenir futuros incidentes, sino también optimizar las estrategias de mantenimiento vial y proponer soluciones técnicas más eficaces para la gestión de riesgos en esta infraestructura crítica.
+La combinación de estos enfoques permitirá no solo prevenir futuros incidentes, sino también optimizar las estrategias de mantenimiento vial y proponer soluciones técnicas más eficaces para la gestión de riesgos en esta infraestructura crítica. De esta manera, el proyecto no solo contribuirá a la seguridad vial, sino también a la resiliencia de la infraestructura en una región susceptible a deslizamientos de tierra.
 
 ## Desarrollo
 Cálculo del Volumen de un Deslizamiento de Tierra
@@ -322,7 +321,7 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 from pyproj import CRS, Transformer
 
-# Coordenadas del polígono (lat, lon)
+#Coordenadas del polígono (lat, lon)
 coordenadas = [
     [19.390504, -103.955763],
     [19.390123, -103.955442],
@@ -460,23 +459,39 @@ https://colab.research.google.com/drive/1Y9l803eQw7NiBlztu6pMmbfqtzGo16Z1#scroll
 https://youtu.be/9gDlI3mhhyw
 ## Resultados 
 # CARRETERA LIBRE COLIMA-GUADALAJARA
+El código tiene como objetivo cargar un archivo Excel desde una ubicación específica en Google Drive utilizando la librería pandas, que se usa comúnmente para manipular y analizar datos en Python. Primero, define la ruta del archivo Excel en Google Drive. Luego, utiliza la función pd.read_excel() para leer el archivo y almacenarlo en un DataFrame, que es una estructura de datos tabular en la que los datos pueden ser organizados y manipulados fácilmente. Finalmente, el código muestra las primeras cinco filas del DataFrame con df.head(), lo que permite verificar que el archivo se haya cargado correctamente y examinar brevemente su contenido antes de realizar análisis adicionales.
 ![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
 
+El código crea un mapa interactivo centrado en unas coordenadas específicas (latitud: 19.390504, longitud: -103.955763) utilizando la librería folium. Luego, recorre las filas de un archivo Excel (cargado previamente en un DataFrame) para obtener las coordenadas de latitud, longitud y la altura antes del deslizamiento. Para cada fila, agrega un marcador en el mapa con la latitud y longitud correspondientes, mostrando la altura en un mensaje emergente (popup) al hacer clic en el marcador. El resultado es un mapa con puntos interactivos que representan las ubicaciones de los deslizamientos y sus respectivas alturas.
 ![image](https://github.com/user-attachments/assets/92ff2ff3-02e8-40f6-9d4d-3a406527d0da)
 
+Este código crea un mapa interactivo utilizando la librería folium, centrado en un conjunto de coordenadas específicas. Primero, define una lista de coordenadas que forman los vértices de un polígono. Luego, crea el mapa y dibuja un polígono azul con un relleno color azul claro en esas coordenadas. El mapa tiene un nivel de zoom de 16 y muestra un mensaje emergente (popup) cuando se hace clic en el polígono, indicando que se trata del "Polígono de deslizamiento". Finalmente, se muestra el mapa interactivo.
+
+Este tipo de visualización es útil para representar áreas afectadas por deslizamientos en un mapa geográfico.
 ![image](https://github.com/user-attachments/assets/dc3a696f-dbe8-4ca8-aeca-bd4685cf82ae)
+
+Este código convierte un conjunto de coordenadas geográficas (latitud, longitud) a coordenadas UTM para crear un polígono en un mapa. Utiliza las librerías Shapely para formar el polígono y calcular su área en metros cuadrados, y matplotlib para graficarlo en 2D. También incluye la visualización del área del polígono en el gráfico.
 
 ![image](https://github.com/user-attachments/assets/78d60053-17d6-4e5b-82ac-6e9eccfb326d)
 
+Este código carga un archivo Excel con coordenadas y elevaciones de un deslizamiento. Calcula la diferencia de elevación entre puntos antes y después del deslizamiento, y usa la fórmula de área de triángulos para estimar el volumen de tierra movida. Luego, genera un gráfico 3D mostrando las elevaciones "antes" y "después" del deslizamiento y calcula el volumen total desplazado.
 ![image](https://github.com/user-attachments/assets/624a474a-4f34-4ab8-95ce-1ca9acf032f7)
 # MINATITLAN
+![image](https://github.com/user-attachments/assets/8ece2da4-18a3-4d2e-9e71-d23733df3626)
 
+![image](https://github.com/user-attachments/assets/9963fe56-66d2-4a50-b361-190468af5b28)
+
+![image](https://github.com/user-attachments/assets/300eb505-cacd-4760-ba0f-83be7bb0efb7)
+
+![image](https://github.com/user-attachments/assets/d404d933-9f57-43f8-b76a-ad41885202a9)
+
+![image](https://github.com/user-attachments/assets/bcfb4d02-adea-4583-9349-07a325dc70fc)
 
 ## Conclusiones
-Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara.
+Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara, así como la verificación y análisis detallado de un reciente derrumbe en Minatitlán, Colima, lo que permitió ajustar nuestras estrategias de prevención y respuesta ante futuros eventos de deslizamientos.
 
-El uso de tecnologías como el software GIS fue fundamental, ya que permitió desarrollar un código especializado capaz de realizar estos cálculos de forma eficiente. Este programa no solo facilitó la cuantificación de las pérdidas de material, sino que también transformó la manera de abordar estos eventos, mejorando significativamente la planificación y respuesta ante deslizamientos.
+El uso de tecnologías como el software GIS fue fundamental, ya que permitió desarrollar un código especializado capaz de realizar estos cálculos de forma eficiente. Este programa no solo facilitó la cuantificación de las pérdidas de material, sino que también transformó la manera de abordar estos eventos, mejorando significativamente la planificación y respuesta ante deslizamientos. En el caso del derrumbe en Minatitlán, se utilizó la misma metodología para obtener las estimaciones de volumen y extensión del deslizamiento, comparando datos antes y después del evento para proporcionar una imagen precisa de su impacto.
 
-Uno de los mayores desafíos fue integrar y adaptar múltiples códigos para lograr un programa funcional y útil en nuestras labores. Esto implicó resolver problemas técnicos relacionados con el manejo de coordenadas X, Y y Z, que son esenciales para los cálculos necesarios. A pesar de las dificultades, el trabajo en equipo y la perseverancia nos permitieron superar los obstáculos y culminar exitosamente el proyecto.
+Uno de los mayores desafíos fue integrar y adaptar múltiples códigos para lograr un programa funcional y útil en nuestras labores. Esto implicó resolver problemas técnicos relacionados con el manejo de coordenadas X, Y y Z, que son esenciales para los cálculos necesarios. A pesar de las dificultades, el trabajo en equipo y la perseverancia nos permitieron superar los obstáculos y culminar exitosamente el proyecto, logrando incluir la comprobación de los datos y la validación del volumen de material desplazado en Minatitlán.
 
-En conclusión, este esfuerzo no solo representa un avance en la seguridad vial y la gestión de riesgos en una arteria clave para la región, sino que también evidencia cómo la tecnología y la colaboración pueden aportar soluciones innovadoras a problemas complejos.
+En conclusión, este esfuerzo no solo representa un avance en la seguridad vial y la gestión de riesgos en una arteria clave para la región, sino que también evidencia cómo la tecnología y la colaboración pueden aportar soluciones innovadoras a problemas complejos, como los deslizamientos de tierra. La integración de herramientas geoespaciales y el análisis continuo de eventos, como el derrumbe en Minatitlán, son pasos fundamentales hacia una gestión más eficaz de los riesgos naturales y su mitigación.
