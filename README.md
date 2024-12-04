@@ -250,7 +250,13 @@ plt.show()
 
 ##CODIGO PARA LA COMPROBACION
 
+##CODIGO EN COLAB
+
 https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
+
+#VIDEO EN YOUTUBE
+
+https://youtu.be/9gDlI3mhhyw
 ## Resultados 
 #CARRETERA LIBRE COLIMA-GUADALAJARA
 ![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
