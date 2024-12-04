@@ -248,13 +248,13 @@ ax.legend()
 
 plt.show()
 
-##CODIGO PARA LA COMPROBACION
+## CODIGO PARA LA COMPROBACION
 
-##CODIGO EN COLAB
+## CODIGO EN COLAB
 
 https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
 
-#VIDEO EN YOUTUBE
+## VIDEO EN YOUTUBE
 
 https://youtu.be/9gDlI3mhhyw
 ## Resultados 
