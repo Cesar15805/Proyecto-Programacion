@@ -248,17 +248,218 @@ ax.legend()
 
 plt.show()
 
-## CODIGO PARA LA COMPROBACION
+## CODIGO PARA LA COMPROBACION DERRUMBE MINATITLAN
 
-## CODIGO EN COLAB
+!apt-get install -y python3-gdal
+!pip install folium
+!pip install openpyxl #para leer archivo en exel
+
+from osgeo import ogr, osr
+from google.colab import drive
+drive.mount('/content/drive')
+%cd "/content/drive/My Drive/programacion2/"
+%ls
+
+import pandas as pd
+
+#Ruta del archivo Excel (sube el archivo desde tu computadora a Colab o Drive)
+excel_path = "/content/drive/My Drive/programacion2/minatitlandeslizamiento_completo.xlsx"
+
+#Leer el archivo Excel
+df = pd.read_excel(excel_path)
+
+#Mostrar las primeras filas del archivo para asegurarse de que se cargó correctamente
+print(df.head())
+
+import folium
+
+#Crear un mapa centrado en la zona del deslizamiento
+mapa = folium.Map(location=[19.390504, -103.955763], zoom_start=16)
+
+#Añadir los puntos del archivo Excel al mapa
+for index, row in df.iterrows():
+    lat = row['Latitud']
+    lon = row['Longitud']
+    Z = row['Altura_Antes']
+    # Assuming you want to display Z value in the popup:
+    folium.Marker(location=[lat, lon], popup=str(Z)).add_to(mapa)
+#Mostrar el mapa interactivo
+mapa
+
+import folium
+
+#Lista de coordenadas (latitud, longitud) en orden
+coordenadas = [
+    [19.390504, -103.955763],
+    [19.390123, -103.955442],
+    [19.390579, -103.955215],
+    [19.390695, -103.954644],
+    [19.391532, -103.954914],
+    [19.391966, -103.954829],
+    [19.392472, -103.955474],
+    [19.391608, -103.955515],
+    [19.390664, -103.955718],
+    [19.390504, -103.955763]  # Cerramos el polígono volviendo al primer punto
+]
+
+#Crear el mapa centrado en la primera coordenada
+mapa = folium.Map(location=[19.390504, -103.955763], zoom_start=16)
+
+#Añadir el polígono al mapa
+folium.Polygon(
+    locations=coordenadas,
+    color='blue',
+    fill=True,
+    fill_color='lightblue',
+    fill_opacity=0.5,
+    popup='Polígono de deslizamiento'
+).add_to(mapa)
+
+#Mostrar el mapa interactivo
+mapa
+
+import matplotlib.pyplot as plt
+from shapely.geometry import Polygon
+from pyproj import CRS, Transformer
+
+# Coordenadas del polígono (lat, lon)
+coordenadas = [
+    [19.390504, -103.955763],
+    [19.390123, -103.955442],
+    [19.390579, -103.955215],
+    [19.390695, -103.954644],
+    [19.391532, -103.954914],
+    [19.391966, -103.954829],
+    [19.392472, -103.955474],
+    [19.391608, -103.955515],
+    [19.390664, -103.955718],
+    [19.390504, -103.955763]  # Cerramos el polígono volviendo al primer punto
+]
+
+#Definir sistemas de coordenadas
+crs_wgs84 = CRS.from_epsg(4326)  # WGS84
+crs_utm = CRS.from_epsg(32613)   # Cambiar según la zona UTM específica (32613 es correcto para esta región)
+
+#Crear un transformador para convertir entre sistemas
+transformer = Transformer.from_crs(crs_wgs84, crs_utm, always_xy=True)
+
+#Convertir coordenadas (lon, lat) a (x, y) en UTM
+coordenadas_utm = [transformer.transform(lon, lat) for lat, lon in coordenadas]
+
+#Crear el polígono usando Shapely
+poligono = Polygon(coordenadas_utm)
+
+#Calcular el área del polígono en metros cuadrados
+area = poligono.area
+print(f"El área del polígono es: {area:.2f} metros cuadrados.")
+
+#Crear el gráfico 2D del polígono
+x, y = poligono.exterior.xy  # Obtener las coordenadas del contorno exterior
+
+plt.figure(figsize=(8, 6))
+plt.fill(x, y, alpha=0.5, color='lightblue', label='Polígono')
+plt.plot(x, y, color='blue', linewidth=2)
+
+#Añadir etiquetas y título
+plt.title("Gráfico 2D del Polígono")
+plt.xlabel("Coordenada Este (UTM)")
+plt.ylabel("Coordenada Norte (UTM)")
+
+#Mostrar el área en el gráfico
+plt.text(min(x), min(y), f'Área: {area:.2f} m²', fontsize=12, color='red', ha='left')
+
+#Mostrar el gráfico
+plt.legend()
+plt.grid(True)
+plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+#Cargar el archivo Excel con las coordenadas y las elevaciones
+excel_path = '/content/drive/My Drive/programacion2/minatitlandeslizamiento_completo.xlsx'  # Reemplaza con la ruta a tu archivo Excel
+df = pd.read_excel(excel_path)
+
+#Visualizar las primeras filas para asegurar que se ha cargado correctamente
+print(df.head())
+
+#Extraer las coordenadas (latitud, longitud) y las elevaciones (antes y después)
+latitudes = df['Latitud']
+longitudes = df['Longitud']
+elevaciones_antes = df['Altura_Antes']
+elevaciones_despues = df['Altura_Despues']
+
+#Calcular la diferencia de elevación en cada punto
+diferencia_elevacion = elevaciones_antes - elevaciones_despues
+
+#Calcular el volumen de tierra movida entre puntos consecutivos
+def calcular_area_triangulo(lat1, lon1, lat2, lon2):
+    """
+    Calcula el área de un triángulo formado por tres puntos en el plano 2D
+    utilizando la fórmula del determinante para el área de un triángulo.
+    """
+    return 0.5 * abs(lat1 * lon2 + lat2 * lon1)
+
+volumen_total = 0
+
+#Iterar sobre los puntos para calcular el volumen
+for i in range(1, len(df)):
+    lat1, lon1 = latitudes[i-1], longitudes[i-1]
+    lat2, lon2 = latitudes[i], longitudes[i]
+    elev1, elev2 = elevaciones_antes[i-1], elevaciones_antes[i]
+
+    # Calcular el área del triángulo formado por los puntos consecutivos
+    area = calcular_area_triangulo(lat1, lon1, lat2, lon2)
+
+    # Calcular la diferencia de elevación
+    diferencia = abs(elev1 - elev2)
+
+    # Calcular el volumen aproximado (Área * Diferencia de elevación)
+    volumen = area * diferencia
+
+    # Sumar al volumen total
+    volumen_total += volumen
+
+print(f"El volumen total desplazado es: {volumen_total} unidades cúbicas")
+
+#Crear una figura 3D
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+#Graficar el modelo 3D para la elevación "Antes" del deslizamiento
+ax.scatter(latitudes, longitudes, elevaciones_antes, c='blue', label='Antes', marker='o')
+
+#Graficar el modelo 3D para la elevación "Después" del deslizamiento
+ax.scatter(latitudes, longitudes, elevaciones_despues, c='red', label='Después', marker='^')
+
+#Etiquetas y título
+ax.set_xlabel('Latitud')
+ax.set_ylabel('Longitud')
+ax.set_zlabel('Elevación (m)')
+ax.set_title('Modelo 3D de la Elevación Antes y Después del Deslizamiento')
+
+#Leyenda
+ax.legend()
+
+#Mostrar el gráfico 3D
+plt.show()
+
+
+
+## CODIGO EN COLAB CARRETERA LIBRE COLIMA-GUADALAJARA
 
 https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
+
+## CODIGO EN COLAB MINATITLAN
+
+https://colab.research.google.com/drive/1Y9l803eQw7NiBlztu6pMmbfqtzGo16Z1#scrollTo=4uI_XeMroHWF
 
 ## VIDEO EN YOUTUBE
 
 https://youtu.be/9gDlI3mhhyw
 ## Resultados 
-#CARRETERA LIBRE COLIMA-GUADALAJARA
+# CARRETERA LIBRE COLIMA-GUADALAJARA
 ![image](https://github.com/user-attachments/assets/90d1b3a0-dc68-42d1-bea4-cfdd845999ab)
 
 ![image](https://github.com/user-attachments/assets/92ff2ff3-02e8-40f6-9d4d-3a406527d0da)
@@ -268,7 +469,8 @@ https://youtu.be/9gDlI3mhhyw
 ![image](https://github.com/user-attachments/assets/78d60053-17d6-4e5b-82ac-6e9eccfb326d)
 
 ![image](https://github.com/user-attachments/assets/624a474a-4f34-4ab8-95ce-1ca9acf032f7)
-#
+# MINATITLAN
+
 
 ## Conclusiones
 Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara.
