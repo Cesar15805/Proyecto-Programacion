@@ -513,6 +513,14 @@ plt.show()
 ## CODIGO EN COLAB CARRETERA LIBRE COLIMA-GUADALAJARA
 
 https://colab.research.google.com/drive/1--sgT5CllInmLbbceUZYyXXcwHpTkgIU#scrollTo=jyfSa4cekbvc&line=1&uniqifier=1
+## EXEL
+carretera libre colima-guadalajara
+
+https://docs.google.com/spreadsheets/d/16ctUVfSSRQI_purXnP9oghn4KW-suEmc/edit?usp=sharing&ouid=106412577940717402382&rtpof=true&sd=true
+
+minatitlan
+
+https://docs.google.com/spreadsheets/d/16ctUVfSSRQI_purXnP9oghn4KW-suEmc/edit?usp=sharing&ouid=106412577940717402382&rtpof=true&sd=true
 
 ## CODIGO EN COLAB MINATITLAN
 
