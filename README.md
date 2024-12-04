@@ -559,6 +559,30 @@ Este código carga un archivo Excel con coordenadas y elevaciones de un deslizam
 
 ![image](https://github.com/user-attachments/assets/bcfb4d02-adea-4583-9349-07a325dc70fc)
 
+## capturas de pantalla
+![image](https://github.com/user-attachments/assets/fe5b3aae-9a86-4b74-b505-059b9855dc40)
+
+![image](https://github.com/user-attachments/assets/34d455fd-61ea-48e3-a4eb-60fee297797f)
+
+![image](https://github.com/user-attachments/assets/b3b7981b-9ec9-43ef-ae85-f256bfd48feb)
+
+![image](https://github.com/user-attachments/assets/05d9da87-6fac-4339-a8b9-f863a5bb1a0d)
+
+![image](https://github.com/user-attachments/assets/2c93727d-68a1-43a0-a708-e478bf5db2b1)
+
+![image](https://github.com/user-attachments/assets/7cc85a37-0a55-4703-b19f-ab4e55a3ab0c)
+
+![image](https://github.com/user-attachments/assets/ac6358c4-6ba0-4b04-97ae-bf455cb696d1)
+
+![image](https://github.com/user-attachments/assets/a130c123-f5cc-4ec6-a6f3-bb669db9341d)
+
+![image](https://github.com/user-attachments/assets/6954bef5-af18-47c7-bab5-6dd33706cdc6)
+
+![image](https://github.com/user-attachments/assets/47e39b65-8587-450b-a708-077e138f6541)
+
+
+
+
 ## Conclusiones
 Este proyecto se desarrolló con un enfoque innovador que integró herramientas tecnológicas avanzadas y análisis geoespacial, permitiéndonos identificar los riesgos más críticos y proponer soluciones efectivas para enfrentarlos. Un aspecto destacado fue la precisión obtenida en el cálculo de variables clave, como el área y el volumen del material desplazado en deslizamientos anteriores en la carretera libre Colima-Guadalajara, así como la verificación y análisis detallado de un reciente derrumbe en Minatitlán, Colima, lo que permitió ajustar nuestras estrategias de prevención y respuesta ante futuros eventos de deslizamientos.
 
